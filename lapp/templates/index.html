@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lottery App | Real-Time Results & Insights</title>
+    <style>
+        :root {
+            --primary: #6a1b9a; 
+            --secondary: #9c27b0;
+            --accent: #ffd700;
+            --dark: #1a1a1a;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --white: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            background: white;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .admin-btn {
+            background: var(--primary);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .admin-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            padding: 80px 5%;
+            text-align: center;
+            background: linear-gradient(135deg, #6a1b9a 0%, #4a148c 100%);
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+
+        /* --- Info Sections --- */
+        .section {
+            padding: 60px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .info-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .info-card h3 {
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        /* --- Why Choose Us --- */
+        .why-us {
+            background: #f0e6f7;
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+        }
+
+        .feature-list li::before {
+            content: "✓";
+            margin-right: 15px;
+            color: #2e7d32;
+            font-weight: bold;
+            background: #c8e6c9;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 0.8rem;
+        }
+
+        /* --- Download Section --- */
+        .download-area {
+            background: white;
+            padding: 60px 5%;
+            text-align: center;
+            border-top: 1px solid #eee;
+        }
+
+        .download-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--light);
+            padding: 40px;
+            border-radius: 20px;
+            border: 2px dashed var(--primary);
+        }
+
+        .dl-btn {
+            background: #2e7d32;
+            color: white;
+            padding: 18px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 20px 0;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
+        }
+
+        .dl-btn:hover {
+            transform: scale(1.05);
+            background: #1b5e20;
+        }
+
+        .install-guide {
+            text-align: left;
+            margin-top: 25px;
+            font-size: 0.9rem;
+            color: #555;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 40px 5%;
+            text-align: center;
+        }
+
+        .disclaimer {
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 20px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" class="logo">LotteryApp</a>
+        <button class="admin-btn" id="loginBtn">Admin Login</button>
+    </nav>
+
+    <header class="hero">
+        <h1>Your Daily Portal to Winning Numbers</h1>
+        <p>Get instant updates, historical data, and expert lottery insights delivered straight to your screen.</p>
+    </header>
+
+    <section class="section">
+        <div class="section-title">
+            <h2>What This App Does</h2>
+        </div>
+        <div class="grid">
+            <div class="info-card">
+                <h3>Real-Time Results</h3>
+                <p>Never wait for the morning newspaper again. We fetch result updates from major draws including Singapore, Dear, and regional lotteries the moment they are announced.</p>
+            </div>
+            <div class="info-card">
+                <h3>Lucky Number Search</h3>
+                <p>Our advanced database allows you to cross-reference your favorite numbers against historical winning patterns to find your next "lucky" pick.</p>
+            </div>
+            <div class="info-card">
+                <h3>Digital Fax Access</h3>
+                <p>View official lottery faxes and result sheets digitally. We preserve the official look and feel while providing the convenience of mobile access.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section why-us">
+        <div class="section-title">
+            <h2>Why Choose This App?</h2>
+        </div>
+        <div class="grid">
+            <div>
+                <p style="margin-bottom: 20px;">While official apps can be slow or cluttered, our <strong>Unofficial Lottery Companion</strong> is built for speed and clarity. We focus exclusively on what matters: the numbers.</p>
+                <ul class="feature-list">
+                    <li><strong>Lightning Fast:</strong> Optimized for low-bandwidth connections.</li>
+                    <li><strong>Historical Archive:</strong> Access results from months or years ago.</li>
+                    <li><strong>Daily Accuracy:</strong> Verified updates updated 24/7.</li>
+                    <li><strong>No-Fuss UI:</strong> Clean interface with no annoying distractions.</li>
+                </ul>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <div style="background: var(--primary); padding: 40px; border-radius: 20px; color: white; text-align: center;">
+                    <h2 style="color: var(--accent);">99.9%</h2>
+                    <p>Update Uptime</p>
+                    <br>
+                    <h2 style="color: var(--accent);">Instant</h2>
+                    <p>Notification Speed</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="download-area">
+        <div class="section-title">
+            <h2>Get the App Now</h2>
+            <p>Download our latest APK and get results faster than anywhere else.</p>
+        </div>
+        
+        <div class="download-container">
+            <a id="downloadBtn" class="dl-btn">
+                Download Android APK
+            </a>
+
+            <p id="versionText"></p>
+
+            
+            <div class="install-guide">
+                <p><strong>Installation Guide:</strong></p>
+                <p>1. Download the file above.</p>
+                <p>2. Tap the file in your notifications to install.</p>
+                <p>3. If prompted, allow "Install from unknown sources" in your Android settings.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Lottery App Hub. All rights reserved.</p>
+        <p class="disclaimer">
+            <strong>Disclaimer:</strong> This is an unofficial application. We are not affiliated with, authorized, or endorsed by any official lottery government body. Lottery participation involves risk; please play responsibly.
+        </p>
+    </footer>
+
+    <script>
+        // Redirect logic
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            window.location.href = "/admin/";
+        });
+
+        // Simple scroll animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+                }
+            });
+        });
+
+        document.querySelectorAll('.info-card').forEach(card => {
+            card.style.opacity = "0";
+            card.style.transform = "translateY(20px)";
+            card.style.transition = "all 0.6s ease-out";
+            observer.observe(card);
+        });
+
+        fetch('api/latest-apk/').then(res => res.json()).then(data =>{
+            document.getElementById('downloadBtn').href = data.apk_url;
+            document.getElementById('downloadBtn').setAttribute('download', '');
+            document.getElementById('versionText').innerText = "Current Version : " + data.version;
+
+        });
+    </script>
+</body>
+</html>

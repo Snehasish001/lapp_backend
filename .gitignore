@@ -1,55 +1,70 @@
-# --------------------
-# Python / Django
-# --------------------
+# ==================================================
+# Python
+# ==================================================
 __pycache__/
 *.py[cod]
 *$py.class
 
-# Virtual environment
+# ==================================================
+# Virtual Environments
+# ==================================================
 .venv/
 venv/
 env/
 
-# Django stuff
+# ==================================================
+# Django
+# ==================================================
+db.sqlite3
+db.sqlite3-journal
 *.log
 local_settings.py
-*/lapp/db.sqlite3
-*/*/db.sqlite3-journal
+
+# Django cache
+.cache/
+
+# Media uploads (user-generated)
 media/
 
-# Migrations cache (optional: keep migrations, ignore cache)
-**/migrations/__pycache__/
-
-# --------------------
-# Environment variables
-# --------------------
-.env
-.env.*
-
-# --------------------
-# Static files
-# --------------------
+# Static files collected in production
 staticfiles/
 static_root/
 
-# --------------------
-# Testing / coverage
-# --------------------
+# Ignore migration cache only (keep migration files)
+**/migrations/__pycache__/
+
+# ==================================================
+# Environment variables
+# ==================================================
+.env
+.env.*
+*.env
+
+# ==================================================
+# Testing / Coverage
+# ==================================================
 .coverage
 coverage.xml
 htmlcov/
 .pytest_cache/
 
-# --------------------
+# ==================================================
 # IDEs / Editors
-# --------------------
+# ==================================================
 .vscode/
 .idea/
 *.swp
 *.swo
+*.sublime-workspace
+*.sublime-project
 
-# --------------------
-# OS files
-# --------------------
+# ==================================================
+# OS junk
+# ==================================================
 .DS_Store
 Thumbs.db
+
+# ==================================================
+# Build / tooling leftovers
+# ==================================================
+pip-wheel-metadata/

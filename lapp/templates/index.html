@@ -313,12 +313,10 @@
     </footer>
 
     <script>
-        // Redirect logic
         document.getElementById('loginBtn').addEventListener('click', function() {
             window.location.href = "/admin/";
         });
 
-        // Simple scroll animation
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {

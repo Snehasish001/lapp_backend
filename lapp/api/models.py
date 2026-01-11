@@ -1,7 +1,7 @@
 from django.db import models
 
 class SingaporeLastDigit(models.Model):
-    date = models.CharField(max_length=50)
+    date = models.CharField(max_length=20)
     mor = models.CharField(max_length=1)
     day = models.CharField(max_length=1)
     evn = models.CharField(max_length=1)
@@ -10,25 +10,25 @@ class SingaporeLastDigit(models.Model):
         return self.date
 
 class SingaporeLastTwoDigit(models.Model):
-    date = models.CharField(max_length=50)
-    mor = models.CharField(max_length=1)
-    day = models.CharField(max_length=1)
-    evn = models.CharField(max_length=1)
+    date = models.CharField(max_length=20)
+    mor = models.CharField(max_length=2)
+    day = models.CharField(max_length=2)
+    evn = models.CharField(max_length=2)
 
     def __str__(self):
         return self.date
 
 class SingaporeLastThreeDigit(models.Model):
-    date = models.CharField(max_length=50)
-    mor = models.CharField(max_length=1)
-    day = models.CharField(max_length=1)
-    evn = models.CharField(max_length=1)
+    date = models.CharField(max_length=20)
+    mor = models.CharField(max_length=3)
+    day = models.CharField(max_length=3)
+    evn = models.CharField(max_length=3)
 
     def __str__(self):
         return self.date
 
 class DearLastDigit(models.Model):
-    date = models.CharField(max_length=50)
+    date = models.CharField(max_length=20)
     mor = models.CharField(max_length=1)
     day = models.CharField(max_length=1)
     evn = models.CharField(max_length=1)
@@ -37,19 +37,19 @@ class DearLastDigit(models.Model):
         return self.date
 
 class DearLastTwoDigit(models.Model):
-    date = models.CharField(max_length=50)
-    mor = models.CharField(max_length=1)
-    day = models.CharField(max_length=1)
-    evn = models.CharField(max_length=1)
+    date = models.CharField(max_length=20)
+    mor = models.CharField(max_length=2)
+    day = models.CharField(max_length=2)
+    evn = models.CharField(max_length=2)
 
     def __str__(self):
         return self.date
 
 class DearLastThreeDigit(models.Model):
-    date = models.CharField(max_length=50)
-    mor = models.CharField(max_length=1)
-    day = models.CharField(max_length=1)
-    evn = models.CharField(max_length=1)
+    date = models.CharField(max_length=20)
+    mor = models.CharField(max_length=3)
+    day = models.CharField(max_length=3)
+    evn = models.CharField(max_length=3)
 
     def __str__(self):
         return self.date

@@ -62,3 +62,15 @@ class AppRelease(models.Model):
 
     def __str__(self):
         return f"App v{self.version}"
+    
+class Fax(models.Model):
+    date = models.DateField(auto_now_add=True)
+    image = models.ImageField(upload_to="fax/")
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["date"], name="one_fax_per_day")
+        ]
+
+    def __str__(self):
+        return f"Fax for {self.date}"

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import SingaporeLastDigit, SingaporeLastTwoDigit, SingaporeLastThreeDigit, DearLastDigit, DearLastTwoDigit, DearLastThreeDigit
+from .models import SingaporeLastDigit, SingaporeLastTwoDigit, SingaporeLastThreeDigit, DearLastDigit, DearLastTwoDigit, DearLastThreeDigit, Fax
 
 class SingaporeLastDigitSerializer(serializers.ModelSerializer):
     class Meta:
@@ -30,6 +30,12 @@ class DearLastThreeDigitSerializer(serializers.ModelSerializer):
     class Meta:
         model = DearLastThreeDigit
         fields = ['date', 'mor', 'day', 'evn']
+
+class FaxSerializer(serializers.ModelSerializer):
+    date = serializers.DateField(read_only = True)
+    class Meta:
+        model = Fax
+        fields = ['date' ,'image']
 
 
 

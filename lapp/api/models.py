@@ -1,58 +1,58 @@
 from django.db import models
 
-class SingaporeLastDigit(models.Model):
-    date = models.CharField(max_length=20)
-    mor = models.CharField(max_length=1)
-    day = models.CharField(max_length=1)
-    evn = models.CharField(max_length=1)
+class BaseDailyDigit(models.Model):
+    date = models.DateField(unique=True)
+    mor = models.CharField(max_length=3, default='-')
+    day = models.CharField(max_length=3, default='-')
+    evn = models.CharField(max_length=3, default='-')
+
+    class Meta:
+        abstract = True
 
     def __str__(self):
-        return self.date
+        return str(self.date)
 
-class SingaporeLastTwoDigit(models.Model):
-    date = models.CharField(max_length=20)
-    mor = models.CharField(max_length=2)
-    day = models.CharField(max_length=2)
-    evn = models.CharField(max_length=2)
 
-    def __str__(self):
-        return self.date
+class SingaporeLastDigit(BaseDailyDigit):
+    mor = models.CharField(max_length=1, default='-')
+    day = models.CharField(max_length=1, default='-')
+    evn = models.CharField(max_length=1, default='-')
 
-class SingaporeLastThreeDigit(models.Model):
-    date = models.CharField(max_length=20)
-    mor = models.CharField(max_length=3)
-    day = models.CharField(max_length=3)
-    evn = models.CharField(max_length=3)
 
-    def __str__(self):
-        return self.date
+class SingaporeLastTwoDigit(BaseDailyDigit):
+    mor = models.CharField(max_length=2, default='-')
+    day = models.CharField(max_length=2, default='-')
+    evn = models.CharField(max_length=2, default='-')
 
-class DearLastDigit(models.Model):
-    date = models.CharField(max_length=20)
-    mor = models.CharField(max_length=1)
-    day = models.CharField(max_length=1)
-    evn = models.CharField(max_length=1)
 
-    def __str__(self):
-        return self.date
+class SingaporeLastThreeDigit(BaseDailyDigit):
+    pass
 
-class DearLastTwoDigit(models.Model):
-    date = models.CharField(max_length=20)
-    mor = models.CharField(max_length=2)
-    day = models.CharField(max_length=2)
-    evn = models.CharField(max_length=2)
 
-    def __str__(self):
-        return self.date
 
-class DearLastThreeDigit(models.Model):
-    date = models.CharField(max_length=20)
-    mor = models.CharField(max_length=3)
-    day = models.CharField(max_length=3)
-    evn = models.CharField(max_length=3)
+class DearLastDigit(BaseDailyDigit):
+    mor = models.CharField(max_length=1, default='-')
+    day = models.CharField(max_length=1, default='-')
+    evn = models.CharField(max_length=1, default='-')
+
+
+class DearLastTwoDigit(BaseDailyDigit):
+    mor = models.CharField(max_length=2, default='-')
+    day = models.CharField(max_length=2, default='-')
+    evn = models.CharField(max_length=2, default='-')
+
+
+class DearLastThreeDigit(BaseDailyDigit):
+    pass
+
+
+class Fax(models.Model):
+    date = models.DateField(auto_now_add=True, unique=True)
+    image = models.ImageField(upload_to="fax/")
 
     def __str__(self):
-        return self.date
+        return f"Fax for {self.date}"
+
 
 class AppRelease(models.Model):
     version = models.CharField(max_length=20)
@@ -63,14 +63,3 @@ class AppRelease(models.Model):
     def __str__(self):
         return f"App v{self.version}"
     
-class Fax(models.Model):
-    date = models.DateField(auto_now_add=True)
-    image = models.ImageField(upload_to="fax/")
-
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(fields=["date"], name="one_fax_per_day")
-        ]
-
-    def __str__(self):
-        return f"Fax for {self.date}"

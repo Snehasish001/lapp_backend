@@ -68,3 +68,7 @@ Thumbs.db
 # Build / tooling leftovers
 # ==================================================
 pip-wheel-metadata/
+
+single_digit.xlsx
+dual_digit.xlsx
+triple_digit.xlsx

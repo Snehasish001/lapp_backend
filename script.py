@@ -3,8 +3,8 @@ import requests
 from datetime import datetime
 
 # -------- CONFIG --------
-API_URL = "http://127.0.0.1:8000/api/singapore/last-three-digit/"
-EXCEL_FILE = "triple_digit.xlsx"
+API_URL = "http://127.0.0.1:8000//api/singapore/last-digit/"
+EXCEL_FILE = "single_digit.xlsx"
 # ------------------------
 
 headers = {

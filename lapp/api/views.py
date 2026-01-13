@@ -86,16 +86,21 @@ class DearLastThreeDigitAPI(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class AppViewAPI(APIView):
+class AppVersionCheckAPI(APIView):
     def get(self, request):
-        apk = AppRelease.objects.filter(is_active=True).order_by('-uploaded_at').first()
+        apk = AppRelease.objects.filter(is_active=True).order_by('-version_code').first()
 
         if not apk:
-            return Response({"error" : "No APK available"}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"error": "No APK available"}, status=status.HTTP_404_NOT_FOUND)
+
+        # This creates the direct download link
+        full_url = request.build_absolute_uri(apk.apk_file.url)
+
         return Response({
-            "version" : apk.verison,
-            "apk_url" : apk.apk_file.url,
-            "release_notes" : apk.release_notes,
+            "min_version_code": apk.version_code,
+            "version_name": apk.version,
+            "apk_url": full_url,      # For your Website
+            "update_url": full_url,   # For your Android Force Update
         })
 
 from datetime import date

@@ -289,18 +289,17 @@
         </div>
         
         <div class="download-container">
-            <a id="downloadBtn" class="dl-btn">
+            <a id="downloadBtn" class="dl-btn" href="#">
                 Download Android APK
             </a>
 
-            <p id="versionText"></p>
+            <p id="versionText" style="margin-top: 10px; font-weight: bold;"></p>
 
-            
             <div class="install-guide">
                 <p><strong>Installation Guide:</strong></p>
                 <p>1. Download the file above.</p>
                 <p>2. Tap the file in your notifications to install.</p>
-                <p>3. If prompted, allow "Install from unknown sources" in your Android settings.</p>
+                <p>3. If prompted, allow <strong>"Install from unknown sources"</strong> in your settings.</p>
             </div>
         </div>
     </section>
@@ -333,12 +332,17 @@
             observer.observe(card);
         });
 
-        fetch('api/latest-apk/').then(res => res.json()).then(data =>{
-            document.getElementById('downloadBtn').href = data.apk_url;
-            document.getElementById('downloadBtn').setAttribute('download', '');
-            document.getElementById('versionText').innerText = "Current Version : " + data.version;
-
-        });
+        // Ensure the path matches your Django URL (e.g., /api/version or /api/latest-apk/)
+        fetch('/api/version') 
+            .then(res => res.json())
+            .then(data => {
+                // Update the button for the website
+                const downloadBtn = document.getElementById('downloadBtn');
+                downloadBtn.href = data.apk_url; 
+                
+                // Update the text for the website
+                document.getElementById('versionText').innerText = "Current Version: " + data.version_name;
+            });
     </script>
 </body>
 </html>

@@ -55,11 +55,13 @@ class Fax(models.Model):
 
 
 class AppRelease(models.Model):
-    version = models.CharField(max_length=20)
+    version = models.CharField(max_length=20)  # e.g., "1.0.0"
+    version_code = models.IntegerField(default=1)  # e.g., 1 (Matches Android's VERSION_CODE)
     apk_file = models.FileField(upload_to='apks/')
     is_active = models.BooleanField(default=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)
+    release_notes = models.TextField(blank=True, null=True) # Good to show what's new
 
     def __str__(self):
-        return f"App v{self.version}"
+        return f"App v{self.version} (Code: {self.version_code})"
     
